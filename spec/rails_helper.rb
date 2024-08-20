@@ -67,31 +67,6 @@ RSpec.configure do |config|
     # Use FactoryBot syntax methods
     config.include FactoryBot::Syntax::Methods
 
-    # Use Database Cleaner
-    config.before(:suite) do
-      DatabaseCleaner.clean_with(:truncation)
-    end
-
-    config.before(:each) do
-      DatabaseCleaner.strategy = :transaction
-    end
-
-    config.before(:each, js: true) do
-      DatabaseCleaner.strategy = :truncation
-    end
-
-    config.before(:each) do
-      DatabaseCleaner.start
-    end
-
-    config.after(:each) do
-      DatabaseCleaner.clean
-    end
-
-    config.fixture_paths = [
-      Rails.root.join('spec/fixtures')
-    ]
-
     config.include Devise::Test::IntegrationHelpers, type: :request
     config.include Warden::Test::Helpers
     config.after(:each) { Warden.test_reset! }
